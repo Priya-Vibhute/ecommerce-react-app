@@ -4,8 +4,9 @@ import { createBrowserRouter, Form, RouterProvider } from "react-router-dom";
 
 import CategoryFormHandler from './components/category/CategoryFormHandler';
 import ProductFormHandler from './components/Products/ProductFormHandler';
-import ProductItem from './components/Products/ProductItem';
 import CategoryItem from './components/category/CategoryItem';
+import Product from './components/Products/Product';
+import ProductItem from './components/Products/ProductItem';
 
 
 

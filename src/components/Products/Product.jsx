@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react';
+import ProductItem from './ProductItem';
 
 function Product() {
+  
+
   return (
     <div>
-      
+     
     </div>
-  )
+  );
 }
 
-export default Product
+export default Product;

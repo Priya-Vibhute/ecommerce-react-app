@@ -1,51 +1,54 @@
-import React from 'react'
+import React from 'react';
+import { useEffect, useState } from 'react';
 
 function ProductItem() {
+
+  const [products, setProducts] = useState([]);
+
+  // Using useEffect to fetch products on component mount
+  useEffect(() => {
+    fetch("http://localhost:8080/products")
+      .then(response => response.json())
+      .then(data => {
+        setProducts(data["_embedded"]["products"]);
+      })
+      .catch(error => {
+        console.error('Error fetching products:', error);
+      });
+  }, []); // Empty dependency array means this effect runs only once after the initial render
   return (
     <div className='container mt-3'>
+      <table className="table table-dark">
+        <thead>
+          <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Product Description</th>
+            <th scope="col">Product Price</th>
+            <th scope="col">Action</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
 
-<table class="table table-dark">
-  <thead>
-    <tr>
-      <th scope="col">Id</th>
-      <th scope="col">Product Name</th>
-      <th scope="col">Product Description</th>
-      <th scope="col">Product Price</th>
-      <th scope="col">Action</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td><button type="button" class="btn btn-success">Update</button></td>
-      <td><button type="button" class="btn btn-danger">Delete</button></td>
-
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td><button type="button" class="btn btn-success">Update</button></td>
-      <td><button type="button" class="btn btn-danger">Delete</button></td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-      <td><button type="button" class="btn btn-success">Update</button></td>
-      <td><button type="button" class="btn btn-danger">Delete</button></td>
-    </tr>
-  </tbody>
-</table>
-      
+           {/* Map over products and render ProductItem for each */}
+      {products.length > 0 ? (
+        products.map(product => (
+          <tr>
+            <td>{product.productName}</td>
+            <td>{product.productDescription}</td>
+            <td>{product.productprice}</td> {/* Make sure to match the correct property name */}
+            <td><button type="button" className="btn btn-success">Update</button></td>
+            <td><button type="button" className="btn btn-danger">Delete</button></td>
+          </tr>
+        ))
+      ) : (
+        <p>No products available.</p>
+      )}
+          
+        </tbody>
+      </table>
     </div>
-  )
+  );
 }
 
-export default ProductItem
+export default ProductItem;
